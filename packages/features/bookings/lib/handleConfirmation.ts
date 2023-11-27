@@ -307,7 +307,7 @@ export async function handleConfirmation(args: {
 
     subscribersMeetingEnded.forEach((subscriber) => {
       updatedBookings.forEach((booking) => {
-        scheduleTrigger(booking, subscriber.subscriberUrl, subscriber);
+        scheduleTrigger(booking, subscriber.subscriberUrl, subscriber, evt);
       });
     });
 

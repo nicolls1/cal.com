@@ -63,10 +63,15 @@ export async function addSubscription({
       });
 
       for (const booking of bookings) {
-        scheduleTrigger(booking, createSubscription.subscriberUrl, {
-          id: createSubscription.id,
-          appId: createSubscription.appId,
-        });
+        scheduleTrigger(
+          booking,
+          createSubscription.subscriberUrl,
+          {
+            id: createSubscription.id,
+            appId: createSubscription.appId,
+          },
+          evt
+        );
       }
     }
 
@@ -267,7 +272,8 @@ export async function listBookings(
 export async function scheduleTrigger(
   booking: { id: number; endTime: Date; scheduledJobs: string[] },
   subscriberUrl: string,
-  subscriber: { id: string; appId: string | null }
+  subscriber: { id: string; appId: string | null },
+  evt: CalendarEvent
 ) {
   try {
     const payload = JSON.stringify({ triggerEvent: WebhookTriggerEvents.MEETING_ENDED, ...booking });
